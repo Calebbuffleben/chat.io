@@ -61,9 +61,7 @@ function App() {
               placeholder="Type a message..."
               className="flex-1 border rounded-md p-2"
             />
-            <input type="submit" className="ml-2 bg-blue-500 text-white p-2 rounded-md">
-              Send
-            </input>
+            <input type="submit" value="send" className="ml-2 bg-blue-500 text-white p-2 rounded-md" />
           </form>
         </div>
       </div>
