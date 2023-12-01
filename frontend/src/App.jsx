@@ -1,7 +1,8 @@
 
 import { useEffect, useState } from 'react';
-import './App.css'
 import { socket } from './socket';
+import { v4 as uuid } from 'uuid'
+import './App.css'
 
 function App() {
   const [socketInstance] = useState(socket());
@@ -10,10 +11,19 @@ function App() {
     socketInstance.on("message", message => {
       console.log('Mensagem recebida', message);
     })
+
+    return () => { socketInstance.off("message") }
   }, [socketInstance]);
 
   const handleSubmit = (data) => {
-    console.log(data)
+    data.preventDefault();
+    const newMessage = {
+      text: data,
+      userName: 'Usuário teste',
+      id: uuid()
+    }
+
+    socketInstance.emit('message', newMessage);
   }
 
   return (
