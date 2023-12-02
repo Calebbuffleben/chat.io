@@ -42,26 +42,33 @@ function App() {
         <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 py-2">
           {/* Messages go here */}
           <div className="flex flex-col items-start space-y-2">
-            <div className="flex items-center">
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3E%3C/path%3E%3C/svg%3E"
-                alt="User 1"
-                className="w-8 h-8 rounded-full mr-2"
-              />
-              <div className="bg-blue-500 text-white py-2 px-4 rounded-lg max-w-xs">
-                Hello there!
+            {messages.map(message => 
+              <>
+                {message.isOwner ? (
+                <div key={message} className="flex items-center">
+                  <img
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3E%3C/path%3E%3C/svg%3E"
+                    alt="User 1"
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
+                  <div className="bg-blue-500 text-white py-2 px-4 rounded-lg max-w-xs">
+                    {message.text}
+                  </div>
+                </div>
+                ) : (!message.isOwner ? (
+                <div className="flex items-center">
+                <img
+                  src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3E%3C/path%3E%3C/svg%3E"
+                  alt="User 2"
+                  className="w-8 h-8 rounded-full mr-2"
+                />
+                <div className="bg-gray-300 py-2 px-4 rounded-lg max-w-xs">
+                  How can I help you?
+                </div>
               </div>
-            </div>
-            <div className="flex items-center">
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12'%3E%3C/path%3E%3C/svg%3E"
-                alt="User 2"
-                className="w-8 h-8 rounded-full mr-2"
-              />
-              <div className="bg-gray-300 py-2 px-4 rounded-lg max-w-xs">
-                How can I help you?
-              </div>
-            </div>
+                ): (<div> Problem with messages </div>))} 
+            </>
+            )}
           </div>
         </div>
 
