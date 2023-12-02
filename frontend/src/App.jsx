@@ -1,12 +1,20 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { socket } from './socket';
 import { v4 as uuid } from 'uuid'
 import './App.css'
 
 function App() {
-  const [socketInstance] = useState(socket());
+  const socketInstance = socket();
+  const messageContainer = useRef(null);
   const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    messageContainer.current.scrollTo(
+      0,
+      messageContainer.current.scrollHeight
+    )
+  }, []);
 
   useEffect(() => {
     socketInstance.on("message", message => {
@@ -41,7 +49,7 @@ function App() {
         {/* Chat Messages */}
         <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 py-2">
           {/* Messages go here */}
-          <div className="flex flex-col items-start space-y-2">
+          <div ref={messageContainer} className="flex flex-col items-start space-y-2">
             {messages.map(message => 
               <>
                 {message.isOwner ? (
