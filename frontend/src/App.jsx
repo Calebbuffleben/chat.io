@@ -6,10 +6,11 @@ import './App.css'
 
 function App() {
   const [socketInstance] = useState(socket());
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     socketInstance.on("message", message => {
-      console.log('Mensagem recebida', message);
+      setMessages(prev => [...prev, message]);
     })
 
     return () => { socketInstance.off("message") }
@@ -21,9 +22,10 @@ function App() {
       text: data,
       userName: 'Usuário teste',
       id: uuid()
-    }
+    };
 
     socketInstance.emit('message', newMessage);
+    setMessages(prev => [...prev, { ...newMessage, isOwner: true }]);
   }
 
   return (
